@@ -8,7 +8,6 @@ import { GradientText } from '../ui/GradientText';
 import { ParticlesBackground } from './ParticlesBackground';
 import { ScrollIndicator } from '../ui/ScrollIndicator';
 import { ANIMATION_TIMINGS, HERO_ANIMATIONS } from '../lib/constants/animations';
-
 import { usePrefersReducedMotion } from '../lib/hooks/usePrefersReducedMotion';
 import { cn } from '../lib/utils/cn';
 import Image from 'next/image';
@@ -36,11 +35,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   subtitle = 'Building exceptional digital experiences with modern technologies',
   ctaPrimary = {
     text: 'View My Work',
-    onClick: () => { },
+    onClick: () => {},
   },
   ctaSecondary = {
     text: 'Contact Me',
-    onClick: () => { },
+    onClick: () => {},
   },
   onScrollClick,
 }) => {
@@ -50,15 +49,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
 
     const x = (clientX - left) / width;
     const y = (clientY - top) / height;
 
     setMousePosition({ x: x * 5 - 5, y: y * 5 - 5 });
   };
-
-
 
   return (
     <section
@@ -72,22 +70,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Animated particles */}
       <ParticlesBackground
-        particleCount={50}
+        particleCount={80}
         particleColor="#1447E6"
-        particleOpacity={0.3}
+        particleOpacity={0.5}
         interactive={!prefersReducedMotion}
       />
 
       {/* Glow effects */}
       <motion.div
-        className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-10 blur-3xl"
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-10 blur-3xl"
         animate={
           prefersReducedMotion
             ? {}
             : {
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.15, 0.1],
-            }
+                scale: [1, 1.2, 1],
+                opacity: [0.1, 0.15, 0.1],
+              }
         }
         transition={{
           duration: 8,
@@ -102,9 +100,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           prefersReducedMotion
             ? {}
             : {
-              scale: [1, 1.1, 1],
-              opacity: [0.05, 0.1, 0.05],
-            }
+                scale: [1, 1.1, 1],
+                opacity: [0.05, 0.1, 0.05],
+              }
         }
         transition={{
           duration: 10,
@@ -124,7 +122,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         >
           {/* Left column - Text content */}
           <motion.div
-            className="flex flex-col justify-center space-y-8"
+            className="md:text-left text-center order-2 md:order-1 flex flex-col justify-center md:items-start items-center space-y-8"
             variants={prefersReducedMotion ? undefined : HERO_ANIMATIONS.fadeInUp}
             style={{
               x: !prefersReducedMotion ? mousePosition.x * 0.3 : 0,
@@ -233,9 +231,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </motion.div>
           </motion.div>
 
-          {/* Right column - Visual element */}
+          {/* Right column */}
           <motion.div
-            className="hidden md:flex items-center justify-center"
+            className="md:pt-0 pt-10 w-3/4 order-1 md:order-2 flex justify-center md:justify-end items-center"
             variants={HERO_ANIMATIONS.fadeInRight}
             initial="initial"
             animate="animate"
@@ -244,8 +242,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               y: !prefersReducedMotion ? mousePosition.y * 0.5 : 0,
             }}
           >
-            {/* Animated box with glow */}
-            <div className="relative w-full max-w-sm aspect-square">
+            <div className="relative">
               {/* Outer glow */}
               <motion.div
                 className="absolute inset-0 rounded-2xl opacity-0"
@@ -257,45 +254,46 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Main box */}
               <motion.div
                 className={cn(
-                  'relative w-full h-full',
-                  'rounded-2xl border border-blue-500 border-opacity-30',
-                  'bg-gradient-to-br from-blue-500 from-0% via-black via-40% to-black to-100%',
+                  'relative inline-block',
+                  'rounded-2xl',
+                  'backdrop-blur-xs',
                   'overflow-hidden'
                 )}
                 animate={
                   prefersReducedMotion
                     ? {}
                     : {
-                      borderColor: [
-                        'rgba(20, 71, 230, 0.3)',
-                        'rgba(20, 71, 230, 0.6)',
-                        'rgba(20, 71, 230, 0.3)',
-                      ],
-                    }
+                        borderColor: [
+                          'rgba(20, 71, 230, 0.3)',
+                          'rgba(20, 71, 230, 0.6)',
+                          'rgba(20, 71, 230, 0.3)',
+                        ],
+                      }
                 }
                 transition={{
                   duration: 3,
                   repeat: Infinity,
                 }}
               >
-                {/* Grid pattern background - using inline style */}
+                {/* Grid pattern */}
                 <div
                   className="absolute inset-0 opacity-10"
                   style={{
-                    backgroundImage: 'linear-gradient(rgba(20, 71, 230, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 71, 230, 0.1) 1px, transparent 1px)',
-                    backgroundSize: '50px 50px'
+                    backgroundImage:
+                      'linear-gradient(rgba(20, 71, 230, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 71, 230, 0.1) 1px, transparent 1px)',
+                    backgroundSize: '50px 50px',
                   }}
                 />
 
                 {/* Center content */}
                 <motion.div
-                  className="absolute inset-0 flex items-center justify-center"
+                  className="relative z-10"
                   animate={
                     prefersReducedMotion
                       ? {}
                       : {
-                        y: [0, -20, 0],
-                      }
+                          y: [0, -20, 0],
+                        }
                   }
                   transition={{
                     duration: 4,
@@ -303,19 +301,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     ease: 'easeInOut',
                   }}
                 >
-                  <div className="text-center">
-                    {/* <div className="text-6xl mb-4">💻</div> */}
-                    {/* <p className="text-blue-200 text-lg font-semibold">
-                      Creative Developer
-                    </p> */}
-                    <Image
-                      src={`/images/me.jpg`}
-                      width={400}
-                      height={400}
-                      alt="Danyal Lotfi profile picture"
-                      priority
-                    />
-                  </div>
+                  <Image
+                    src="/images/me.jpg"
+                    alt="Danyal Lotfi profile picture"
+                    width={400}
+                    height={400}
+                    className="rounded-2xl object-cover"
+                    priority
+                  />
                 </motion.div>
 
                 {/* Top-left accent */}
