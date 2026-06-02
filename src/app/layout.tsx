@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import React from 'react';
 import { Header } from './componenets/layout/Header';
 import '@/app/globals.css';
+import { Footer } from './componenets/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'John Doe - Full Stack Developer',
@@ -73,14 +74,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
           Skip to main content
         </a>
 
-      {/* Header */}
-      <Header />
+        {/* Header */}
+        <Header />
 
-      {/* Main content */}
-      <main id="main" className="relative overflow-hidden">
-        {children}
-      </main>
-    </body>
+        {/* Main content */}
+        <main id="main" className="relative overflow-hidden">
+          {children}
+        </main>
+
+        {/* Footer */}
+        <Footer />
+
+      </body>
     </html >
   );
 }

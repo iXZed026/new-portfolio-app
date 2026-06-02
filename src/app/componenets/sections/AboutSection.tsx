@@ -3,11 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaCode, FaLightbulb, FaRocket } from 'react-icons/fa';
-import { usePrefersReducedMotion } from '../lib/hooks/usePrefersReducedMotion';
 import { SkillsSection } from './SkillsSection';
 
 export const AboutSection: React.FC = () => {
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   const aboutBlocks = [
     {
@@ -33,42 +31,11 @@ export const AboutSection: React.FC = () => {
   return (
     <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-black" />
+      {/* Glow */}
+      <div className="absolute left-0 top-0 w-96 h-96 bg-blue-600/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute right-0 bottom-0 w-96 h-96 bg-blue-500/5 blur-3xl rounded-full pointer-events-none" />
 
-      {/* Decorative glow */}
-      {!prefersReducedMotion && (
-        <>
-          <motion.div
-            className="absolute bottom-1/3 left-0 w-96 h-96 bg-blue-600 rounded-full opacity-5 blur-3xl"
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.05, 0.1, 0.05],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-
-          <motion.div
-            className="absolute top-1/4 right-0 w-80 h-80 bg-blue-500 rounded-full opacity-5 blur-3xl"
-            animate={{
-              scale: [1, 1.15, 1],
-              opacity: [0.05, 0.08, 0.05],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 1,
-            }}
-          />
-        </>
-      )}
-
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-30 max-w-6xl mx-auto">
         {/* About */}
         <motion.div
           className="mb-24"
@@ -163,6 +130,7 @@ export const AboutSection: React.FC = () => {
           <SkillsSection />
         </div>
       </div>
+      
     </section>
   );
 };
