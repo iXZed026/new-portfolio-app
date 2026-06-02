@@ -6,6 +6,7 @@ import React, { useRef } from 'react';
 import { HeroSection } from './componenets/hero/HeroSection';
 import { AboutSection } from './componenets/sections/AboutSection';
 import { ContactSection } from './componenets/sections/ContactSection';
+import { ProjectsSection } from './componenets/sections/ProjectsSection';
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,10 @@ export default function Home() {
       {/* About Section */}
       <div data-section="about">
         <AboutSection />
+      </div>
+
+      <div data-section="projects">
+        <ProjectsSection />
       </div>
 
       {/* Contact Section */}

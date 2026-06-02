@@ -23,6 +23,11 @@ export const NAV_ITEMS: NavItem[] = [
     href: '#skills',
   },
   {
+    id: 'projects',
+    label: 'Projects',
+    href: '#projects',
+  },
+  {
     id: 'contact',
     label: 'Contact',
     href: '#contact',

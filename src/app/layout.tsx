@@ -65,7 +65,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-black text-white antialiased">
+      <body className="bg-black text-white antialiased"
+        cz-shortcut-listen="true"
+      >
         {/* Skip to main content link for accessibility */}
         <a
           href="#main"
