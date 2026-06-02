@@ -4,16 +4,20 @@
 
 import React, { useRef } from 'react';
 import { HeroSection } from './componenets/hero/HeroSection';
+import { AboutSection } from './componenets/sections/AboutSection';
+import { ContactSection } from './componenets/sections/ContactSection';
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
 
   const handleViewSkills = () => {
-    console.log('View skills clicked');
+    const skillsElement = document.querySelector('[data-section="skills"]');
+    skillsElement?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleContactMe = () => {
-    console.log('Contact me clicked');
+    const contactElement = document.querySelector('[data-section="contact"]');
+    contactElement?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleScrollDown = () => {
@@ -27,13 +31,14 @@ export default function Home() {
 
   return (
     <>
-      <div ref={heroRef}>
+      {/* Hero Section */}
+      <div ref={heroRef} data-section="home">
         <HeroSection
-          name="Danyal Lotfi"
+          name="John Doe"
           title="Full Stack Developer"
           subtitle="Building exceptional digital experiences with modern technologies. Specializing in React, Next.js, and TypeScript."
           ctaPrimary={{
-            text: 'View My Work', 
+            text: 'View My Work',
             onClick: handleViewSkills,
           }}
           ctaSecondary={{
@@ -42,6 +47,16 @@ export default function Home() {
           }}
           onScrollClick={handleScrollDown}
         />
+      </div>
+
+      {/* About Section */}
+      <div data-section="about">
+        <AboutSection />
+      </div>
+
+      {/* Contact Section */}
+      <div data-section="contact">
+        <ContactSection />
       </div>
     </>
   );

@@ -72,7 +72,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <ParticlesBackground
         particleCount={80}
         particleColor="#1447E6"
-        particleOpacity={0.5}
+        particleOpacity={1}
         interactive={!prefersReducedMotion}
       />
 
@@ -113,16 +113,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       />
 
       {/* Content container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <motion.div
-          className="grid md:grid-cols-2 gap-12 items-center min-h-[600px] lg:min-h-[700px]"
+          className="grid md:grid-cols-2 gap-12 items-start min-h-[600px] lg:min-h-[700px]"
           variants={HERO_ANIMATIONS.staggerContainer as any}
           initial="initial"
           animate="animate"
         >
           {/* Left column - Text content */}
           <motion.div
-            className="md:text-left text-center order-2 md:order-1 flex flex-col justify-center md:items-start items-center space-y-8"
+            className=" md:text-left text-center order-2 md:order-1 flex flex-col justify-center md:items-start items-center space-y-10 pb-10"
             variants={prefersReducedMotion ? undefined : HERO_ANIMATIONS.fadeInUp}
             style={{
               x: !prefersReducedMotion ? mousePosition.x * 0.3 : 0,
@@ -136,7 +136,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial="initial"
               animate="animate"
             >
-              <div className="w-2 h-2 bg-blue-500 rounded-full" />
+              <div className="w-2 h-2 bg-blue-500 rounded-full " />
               <span className="text-sm font-medium text-gray-300 uppercase tracking-widest">
                 Welcome to my portfolio
               </span>
@@ -149,7 +149,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial="initial"
               animate="animate"
             >
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight text-white">
+              <h1 className="text-5xl sm:text-xl lg:text-6xl font-bold leading-tight text-white">
                 Hi, I'm{' '}
                 <GradientText colors={['#1447E6', '#64B5F6']}>
                   {name}
@@ -217,15 +217,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               animate="animate"
             >
               <div>
-                <p className="text-3xl font-bold text-blue-500">5+</p>
+                <p className="text-3xl font-bold text-blue-500">3+</p>
                 <p className="text-sm text-gray-400 mt-2">Years Experience</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-blue-500">50+</p>
+                <p className="text-3xl font-bold text-blue-500">10+</p>
                 <p className="text-sm text-gray-400 mt-2">Projects Done</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-blue-500">30+</p>
+                <p className="text-3xl font-bold text-blue-500">Many</p>
                 <p className="text-sm text-gray-400 mt-2">Clients Happy</p>
               </div>
             </motion.div>
@@ -233,7 +233,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Right column */}
           <motion.div
-            className="md:pt-0 pt-10 w-3/4 order-1 md:order-2 flex justify-center md:justify-end items-center"
+            className="md:pt-0 pt-10 md:w-full w-3/4 order-1 md:order-2 flex justify-center md:justify-end items-center md:min-h-screen "
             variants={HERO_ANIMATIONS.fadeInRight}
             initial="initial"
             animate="animate"
@@ -245,7 +245,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="relative">
               {/* Outer glow */}
               <motion.div
-                className="absolute inset-0 rounded-2xl opacity-0"
+                className=" absolute inset-0 rounded-2xl opacity-0"
                 variants={HERO_ANIMATIONS.glowPulse}
                 initial="initial"
                 animate={prefersReducedMotion ? {} : 'animate'}
@@ -256,8 +256,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 className={cn(
                   'relative inline-block',
                   'rounded-2xl',
-                  'backdrop-blur-xs',
-                  'overflow-hidden'
+                  'backdrop-blur-3xl rounded-full',
+                  'overflow-hidden',
+                  'border-2 border-blue-600/50',
                 )}
                 animate={
                   prefersReducedMotion
