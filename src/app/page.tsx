@@ -35,7 +35,7 @@ export default function Home() {
       {/* Hero Section */}
       <div ref={heroRef} data-section="home">
         <HeroSection
-          name="John Doe"
+          name="Danyal Lotfi"
           title="Full Stack Developer"
           subtitle="Building exceptional digital experiences with modern technologies. Specializing in React, Next.js, and TypeScript."
           ctaPrimary={{

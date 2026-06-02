@@ -15,6 +15,7 @@ import {
   SiBootstrap,
   SiGithub,
   SiRedux,
+  SiN8N
 } from 'react-icons/si';
 
 export interface Skill {
@@ -83,5 +84,10 @@ export const SKILLS: Skill[] = [
     name: 'Linux',
     percentage: 70,
     icon: FaLinux,
+  },
+  {
+    name: 'N8N',
+    percentage: 50,
+    icon: SiN8N,
   },
 ];
