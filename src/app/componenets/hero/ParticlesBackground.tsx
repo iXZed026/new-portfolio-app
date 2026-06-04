@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useMousePosition } from '../lib/hooks/useMousePosition';
 import { usePrefersReducedMotion } from '../lib/hooks/usePrefersReducedMotion';
 
@@ -39,37 +39,46 @@ export const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   const prefersReducedMotion = usePrefersReducedMotion();
   const [isClient, setIsClient] = useState(false);
 
+  // Initialize client-side rendering
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Main animation loop
   useEffect(() => {
-    if (!isClient || prefersReducedMotion) return;
+    if (!isClient) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
+    // Set canvas size
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+      
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      
+      ctx.scale(dpr, dpr);
     };
 
     resizeCanvas();
 
+    // Initialize particles
     const initializeParticles = () => {
       particlesRef.current = Array.from({ length: particleCount }, () => {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
 
         return {
           x,
           y,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          radius: Math.random() * 1 + 0.5,
           opacity: Math.random() * 0.5 + 0.2,
           originalX: x,
           originalY: y,
@@ -79,17 +88,21 @@ export const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
 
     initializeParticles();
 
+    // Animation loop
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas with slight trail effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
       const particles = particlesRef.current;
 
       particles.forEach((particle) => {
+        // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        if (interactive && typeof window !== 'undefined') {
+        // Interactive behavior
+        if (interactive) {
           const dx = mousePosition.x - particle.x;
           const dy = mousePosition.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -107,21 +120,28 @@ export const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
           }
         }
 
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.y > canvas.height) particle.y = 0;
-        if (particle.y < 0) particle.y = canvas.height;
+        // Wrap around edges
+        if (particle.x > window.innerWidth) particle.x = 0;
+        if (particle.x < 0) particle.x = window.innerWidth;
+        if (particle.y > window.innerHeight) particle.y = 0;
+        if (particle.y < 0) particle.y = window.innerHeight;
 
+        // Apply friction
         particle.vx *= 0.99;
         particle.vy *= 0.99;
 
+        // Draw particle
         ctx.fillStyle = particleColor;
         ctx.globalAlpha = particle.opacity;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         ctx.fill();
+      });
 
-        particles.forEach((otherParticle) => {
+      // Draw connections between nearby particles
+      particles.forEach((particle, i) => {
+        for (let j = i + 1; j < particles.length; j++) {
+          const otherParticle = particles[j];
           const dpx = particle.x - otherParticle.x;
           const dpy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dpx * dpx + dpy * dpy);
@@ -136,25 +156,34 @@ export const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
             ctx.lineTo(otherParticle.x, otherParticle.y);
             ctx.stroke();
           }
-        });
+        }
       });
 
       ctx.globalAlpha = 1;
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Start animation unless motion is reduced
+    if (!prefersReducedMotion) {
+      animate();
+    }
 
-    window.addEventListener('resize', resizeCanvas);
+    // Handle resize
+    const handleResize = () => {
+      resizeCanvas();
+    };
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', handleResize);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
   }, [isClient, particleCount, particleColor, particleOpacity, interactive, mousePosition, prefersReducedMotion]);
 
+  // Return null only if motion is reduced
   if (!isClient || prefersReducedMotion) {
     return null;
   }
@@ -162,8 +191,12 @@ export const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed top-0 left-0 w-full h-full pointer-events-none ${className}`}
+      className={cn(`fixed top-0 left-0 w-screen h-screen pointer-events-none`, className)}
       aria-hidden="true"
     />
   );
 };
+
+function cn(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(' ');
+}

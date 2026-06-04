@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
 import { IoArrowForward } from 'react-icons/io5';
 import { Button } from '../ui/Button';
 import { GradientText } from '../ui/GradientText';
 import { ParticlesBackground } from './ParticlesBackground';
 import { ScrollIndicator } from '../ui/ScrollIndicator';
-import { ANIMATION_TIMINGS, HERO_ANIMATIONS } from '../lib/constants/animations';
 import { usePrefersReducedMotion } from '../lib/hooks/usePrefersReducedMotion';
 import { cn } from '../lib/utils/cn';
 import Image from 'next/image';
@@ -48,9 +46,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion) return;
+
     const { clientX, clientY } = e;
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
 
     const x = (clientX - left) / width;
     const y = (clientY - top) / height;
@@ -61,14 +60,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black"
-      onMouseMove={prefersReducedMotion ? undefined : handleMouseMove}
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black md:py-0 pb-20"
+      onMouseMove={handleMouseMove}
       aria-label="Hero section"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-blue-950 opacity-40" />
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-blue-950 opacity-40 pointer-events-none" />
 
-      {/* Animated particles */}
+      {/* Particles background */}
       <ParticlesBackground
         particleCount={80}
         particleColor="#1447E6"
@@ -76,124 +75,60 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         interactive={!prefersReducedMotion}
       />
 
-      {/* Glow effects */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-10 blur-3xl"
-        animate={
-          prefersReducedMotion
-            ? {}
-            : {
-                scale: [1, 1.2, 1],
-                opacity: [0.1, 0.15, 0.1],
-              }
-        }
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+      {/* Animated glow orbs */}
+      <div
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-10 blur-3xl pointer-events-none animate-glow-pulse"
+        aria-hidden="true"
       />
 
-      <motion.div
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500 rounded-full opacity-5 blur-3xl"
-        animate={
-          prefersReducedMotion
-            ? {}
-            : {
-                scale: [1, 1.1, 1],
-                opacity: [0.05, 0.1, 0.05],
-              }
-        }
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
+      <div
+        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500 rounded-full opacity-5 blur-3xl pointer-events-none animate-glow-pulse"
+        style={{ animationDelay: '1s' }}
+        aria-hidden="true"
       />
 
       {/* Content container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-        <motion.div
-          className="grid md:grid-cols-2 gap-12 items-start min-h-[600px] lg:min-h-[700px]"
-          variants={HERO_ANIMATIONS.staggerContainer as any}
-          initial="initial"
-          animate="animate"
-        >
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left column - Text content */}
-          <motion.div
-            className=" md:text-left text-center order-2 md:order-1 flex flex-col justify-center md:items-start items-center space-y-10 pb-10"
-            variants={prefersReducedMotion ? undefined : HERO_ANIMATIONS.fadeInUp}
-            style={{
-              x: !prefersReducedMotion ? mousePosition.x * 0.3 : 0,
-              y: !prefersReducedMotion ? mousePosition.y * 0.3 : 0,
-            }}
-          >
+          <div className="text-center md:text-left order-2 md:order-1 space-y-6 sm:space-y-8">
             {/* Greeting badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 w-fit"
-              variants={HERO_ANIMATIONS.staggerItem}
-              initial="initial"
-              animate="animate"
-            >
-              <div className="w-2 h-2 bg-blue-500 rounded-full " />
-              <span className="text-sm font-medium text-gray-300 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 w-fit mx-auto md:mx-0 animate-fade-up">
+              <div className="w-2 h-2 bg-blue-500 rounded-full" />
+              <span className="text-xs sm:text-sm font-medium text-gray-300 uppercase tracking-widest">
                 Welcome to my portfolio
               </span>
-            </motion.div>
+            </div>
 
             {/* Main heading */}
-            <motion.div
-              className="space-y-4"
-              variants={HERO_ANIMATIONS.staggerItem}
-              initial="initial"
-              animate="animate"
-            >
-              <h1 className="text-5xl sm:text-xl lg:text-6xl font-bold leading-tight text-white">
+            <div className="space-y-3 sm:space-y-4 animate-fade-up animate-stagger-1">
+              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 Hi, I'm{' '}
                 <GradientText colors={['#1447E6', '#64B5F6']}>
                   {name}
                 </GradientText>
               </h1>
 
-              <motion.h2
-                className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0.6,
-                  duration: 0.8,
-                }}
-              >
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-300">
                 {title}
-              </motion.h2>
-            </motion.div>
+              </h2>
+            </div>
 
             {/* Subtitle */}
-            <motion.p
-              className="text-lg text-gray-400 max-w-lg leading-relaxed"
-              variants={HERO_ANIMATIONS.staggerItem}
-              initial="initial"
-              animate="animate"
-            >
+            <p className="text-base sm:text-lg text-gray-400 max-w-lg leading-relaxed animate-fade-up animate-stagger-2 mx-auto md:mx-0">
               {subtitle}
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-8"
-              variants={HERO_ANIMATIONS.staggerItem}
-              initial="initial"
-              animate="animate"
-            >
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 sm:pt-8 w-full sm:w-auto animate-fade-up animate-stagger-3">
               <Button
                 variant="primary"
                 size="lg"
                 onClick={ctaPrimary.onClick}
                 aria-label={ctaPrimary.text}
-                className="group relative"
+                className="group relative w-full sm:w-auto"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center sm:justify-start gap-2">
                   {ctaPrimary.text}
                   <IoArrowForward className="transform group-hover:translate-x-1 transition-transform duration-300" />
                 </span>
@@ -204,137 +139,91 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 size="lg"
                 onClick={ctaSecondary.onClick}
                 aria-label={ctaSecondary.text}
+                className="w-full sm:w-auto"
               >
                 {ctaSecondary.text}
               </Button>
-            </motion.div>
+            </div>
 
             {/* Stats section */}
-            <motion.div
-              className="grid grid-cols-3 gap-8 pt-12 border-t border-gray-800"
-              variants={HERO_ANIMATIONS.staggerItem}
-              initial="initial"
-              animate="animate"
-            >
-              <div>
-                <p className="text-3xl font-bold text-blue-500">3+</p>
-                <p className="text-sm text-gray-400 mt-2">Years Experience</p>
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-12 border-t border-gray-800 w-full animate-fade-up animate-stagger-4">
+              <div className="text-center md:text-left">
+                <p className="text-2xl sm:text-3xl font-bold text-blue-500">3+</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">Years Experience</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-blue-500">10+</p>
-                <p className="text-sm text-gray-400 mt-2">Projects Done</p>
+              <div className="text-center md:text-left">
+                <p className="text-2xl sm:text-3xl font-bold text-blue-500">10+</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">Projects Done</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-blue-500">Many</p>
-                <p className="text-sm text-gray-400 mt-2">Clients Happy</p>
+              <div className="text-center md:text-left">
+                <p className="text-2xl sm:text-3xl font-bold text-blue-500">Many</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">Clients Happy</p>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          {/* Right column */}
-          <motion.div
-            className="md:pt-0 pt-10 md:w-full w-3/4 order-1 md:order-2 flex justify-center md:justify-end items-center md:min-h-screen "
-            variants={HERO_ANIMATIONS.fadeInRight}
-            initial="initial"
-            animate="animate"
+          {/* Right column  */}
+          <div
+            className="order-1 md:order-2 flex justify-center md:justify-end items-center animate-fade-right"
             style={{
-              x: !prefersReducedMotion ? mousePosition.x * 0.5 : 0,
-              y: !prefersReducedMotion ? mousePosition.y * 0.5 : 0,
+              transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
+              transition: 'transform 0.3s ease-out',
             }}
           >
-            <div className="relative">
-              {/* Outer glow */}
-              <motion.div
-                className=" absolute inset-0 rounded-2xl opacity-0"
-                variants={HERO_ANIMATIONS.glowPulse}
-                initial="initial"
-                animate={prefersReducedMotion ? {} : 'animate'}
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
+              {/* Glow effect */}
+              <div
+                className="absolute inset-0  rounded-full animate-glow-pulse"
+                aria-hidden="true"
               />
 
-              {/* Main box */}
-              <motion.div
+              {/* Image container */}
+              <div
                 className={cn(
-                  'relative inline-block',
-                  'rounded-2xl',
-                  'backdrop-blur-3xl rounded-full',
-                  'overflow-hidden',
-                  'border-2 border-blue-600/50',
+                  'relative inline-block w-full',
+                  'rounded-full',
+                  'bg-black/70',
+                  'border-2 border-blue-600/50 animate-border-glow'
                 )}
-                animate={
-                  prefersReducedMotion
-                    ? {}
-                    : {
-                        borderColor: [
-                          'rgba(20, 71, 230, 0.3)',
-                          'rgba(20, 71, 230, 0.6)',
-                          'rgba(20, 71, 230, 0.3)',
-                        ],
-                      }
-                }
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                }}
               >
-                {/* Grid pattern */}
-                <div
-                  className="absolute inset-0 opacity-10"
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(rgba(20, 71, 230, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 71, 230, 0.1) 1px, transparent 1px)',
-                    backgroundSize: '50px 50px',
-                  }}
-                />
+                {/* Inner wrapper for overflow */}
+                <div className="relative w-full overflow-hidden rounded-full">
+                  {/* Grid pattern background */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      backgroundImage:
+                        'linear-gradient(rgba(20, 71, 230, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 71, 230, 0.1) 1px, transparent 1px)',
+                      backgroundSize: '50px 50px',
+                    }}
+                  />
 
-                {/* Center content */}
-                <motion.div
-                  className="relative z-10"
-                  animate={
-                    prefersReducedMotion
-                      ? {}
-                      : {
-                          y: [0, -20, 0],
-                        }
-                  }
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                >
+                {/* Image with floating animation */}
+                <div className="relative z-10">
                   <Image
                     src="/images/me.jpg"
                     alt="Danyal Lotfi profile picture"
                     width={400}
                     height={400}
-                    className="rounded-2xl object-cover"
+                    className="w-full h-auto rounded-2xl object-cover"
                     priority
                   />
-                </motion.div>
+                </div>
 
-                {/* Top-left accent */}
-                <div className="absolute top-0 left-0 w-20 h-20 bg-blue-500 opacity-10 blur-2xl rounded-full -translate-x-1/2 -translate-y-1/2" />
-
-                {/* Bottom-right accent */}
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-600 opacity-5 blur-3xl rounded-full translate-x-1/4 translate-y-1/4" />
-              </motion.div>
+                {/* Accent elements */}
+                <div className="absolute top-0 left-0 w-20 h-20 bg-blue-500 opacity-10 blur-2xl rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-blue-600 opacity-5 blur-3xl rounded-full translate-x-1/4 translate-y-1/4 pointer-events-none" />
+                </div>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: 1,
-          duration: 0.6,
-        }}
-      >
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 animate-fade-up">
         <ScrollIndicator onClick={onScrollClick} />
-      </motion.div>
+      </div>
     </section>
   );
 };

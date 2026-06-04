@@ -1,8 +1,8 @@
+// components/ui/ScrollIndicator.tsx
+
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { HERO_ANIMATIONS } from '../lib/constants/animations';
 import { usePrefersReducedMotion } from '../lib/hooks/usePrefersReducedMotion';
 
 interface ScrollIndicatorProps {
@@ -17,43 +17,31 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
-    <motion.button
+    <button
       onClick={onClick}
-      className="flex flex-col items-center justify-center gap-1 cursor-pointer bg-transparent border-none p-2"
+      className={`flex flex-col items-center justify-center gap-1 cursor-pointer bg-transparent border-none p-2 ${
+        !prefersReducedMotion ? 'animate-floating' : ''
+      }`}
       aria-label={ariaLabel}
-      variants={
-        prefersReducedMotion
-          ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
-          : HERO_ANIMATIONS.floatingMotion
-      }
-      initial="initial"
-      animate="animate"
     >
       {/* Scroll text */}
-      <motion.span
-        className="text-xs uppercase tracking-widest text-gray-400 font-semibold"
-        animate={prefersReducedMotion ? {} : { opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
+      <span className={`text-xs uppercase tracking-widest text-gray-400 font-semibold ${
+        !prefersReducedMotion ? 'animate-pulse-opacity' : ''
+      }`}>
         Scroll
-      </motion.span>
+      </span>
 
       {/* Scroll line with dot */}
       <div className="relative w-0.5 h-8 border-l border-blue-500 overflow-hidden">
-        <motion.div
+        <div
           className="absolute top-0 left-0 w-full h-2 bg-gradient-to-b from-blue-500 to-transparent"
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  top: [0, 12, 0],
+          style={
+            !prefersReducedMotion
+              ? {
+                  animation: 'scrollIndicatorMove 1.5s ease-in-out infinite',
                 }
+              : undefined
           }
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
         />
       </div>
 
@@ -70,6 +58,17 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
       >
         <path d="M12 5v14M19 12l-7 7-7-7" />
       </svg>
-    </motion.button>
+
+      <style>{`
+        @keyframes scrollIndicatorMove {
+          0%, 100% {
+            top: 0;
+          }
+          50% {
+            top: 12px;
+          }
+        }
+      `}</style>
+    </button>
   );
 };

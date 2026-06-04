@@ -9,16 +9,18 @@ import { ContactSection } from './componenets/sections/ContactSection';
 import { ProjectsSection } from './componenets/sections/ProjectsSection';
 
 export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-
   const handleViewSkills = () => {
     const skillsElement = document.querySelector('[data-section="skills"]');
-    skillsElement?.scrollIntoView({ behavior: 'smooth' });
+    if (skillsElement) {
+      skillsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const handleContactMe = () => {
     const contactElement = document.querySelector('[data-section="contact"]');
-    contactElement?.scrollIntoView({ behavior: 'smooth' });
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const handleScrollDown = () => {
@@ -33,7 +35,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div ref={heroRef} data-section="home">
+      <div data-section="home">
         <HeroSection
           name="Danyal Lotfi"
           title="Full Stack Developer"
@@ -55,6 +57,7 @@ export default function Home() {
         <AboutSection />
       </div>
 
+      {/* Projects Section */}
       <div data-section="projects">
         <ProjectsSection />
       </div>

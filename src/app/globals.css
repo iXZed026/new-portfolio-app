@@ -1,3 +1,394 @@
 @import "tailwindcss";
 
+/* ============================================
+   GLOBAL ANIMATIONS & KEYFRAMES
+   ============================================ */
 
+/* Fade In - Simple opacity entrance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade Up - Opacity + upward movement */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade Down - Opacity + downward movement */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade Left - Opacity + left movement */
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade Right - Opacity + right movement */
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Floating Motion - Gentle vertical bobbing */
+@keyframes floatingMotion {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Glow Pulse - Smooth glow animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(20, 71, 230, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(20, 71, 230, 0.4);
+  }
+}
+
+/* Border Glow - For interactive borders */
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(20, 71, 230, 0.3);
+  }
+  50% {
+    border-color: rgba(20, 71, 230, 0.6);
+  }
+}
+
+/* Scale In - Zoom entrance with fade */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gradient Shift - Animated gradient (requires background-size setup) */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Slow Scale - Subtle scale pulse */
+@keyframes slowScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Pulse Opacity - Opacity pulse (different from scale) */
+@keyframes pulseOpacity {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Shimmer - Loading shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Slide In - Horizontal slide from left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In - Horizontal slide from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Line Draw - For animated underlines */
+@keyframes lineDraw {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   CSS ANIMATION CLASSES
+   ============================================ */
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-fade-down {
+  animation: fadeDown 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-fade-left {
+  animation: fadeLeft 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-fade-right {
+  animation: fadeRight 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-floating {
+  animation: floatingMotion 4s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-gradient-shift {
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-slow-scale {
+  animation: slowScale 4s ease-in-out infinite;
+}
+
+.animate-pulse-opacity {
+  animation: pulseOpacity 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) forwards;
+}
+
+.animate-line-draw {
+  animation: lineDraw 0.6s ease-out forwards;
+}
+
+/* Stagger animations */
+.animate-stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-stagger-4 {
+  animation-delay: 0.4s;
+}
+
+.animate-stagger-5 {
+  animation-delay: 0.5s;
+}
+
+.animate-stagger-6 {
+  animation-delay: 0.6s;
+}
+
+/* ============================================
+   HOVER & INTERACTIVE EFFECTS
+   ============================================ */
+
+.group-hover\:animate-glow {
+  @apply group-hover:shadow-lg;
+  @apply group-hover:shadow-blue-500/20;
+  @apply transition-shadow;
+  @apply duration-300;
+}
+
+.card-hover-lift {
+  @apply transition-all duration-300;
+}
+
+.card-hover-lift:hover {
+  @apply -translate-y-2;
+  @apply shadow-lg;
+  @apply shadow-blue-500/20;
+}
+
+.button-hover-glow {
+  @apply transition-all duration-300;
+}
+
+.button-hover-glow:hover {
+  @apply shadow-lg;
+  @apply shadow-blue-600/40;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-blue-600;
+  @apply text-white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-600;
+  @apply rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-500;
+}
+
+/* ============================================
+   PREVENT MOTION FOR ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================ */
+
+/* Ensure proper font rendering across devices */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   GRADIENT UTILITIES
+   ============================================ */
+
+.gradient-blue {
+  background: linear-gradient(to right, #1447E6, #64B5F6);
+}
+
+.gradient-glow {
+  position: relative;
+}
+
+.gradient-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #1447E6, #64B5F6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-glow:hover::before {
+  opacity: 0.1;
+}

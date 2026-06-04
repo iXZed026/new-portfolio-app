@@ -89,15 +89,13 @@ export const Footer: React.FC = () => {
 
                 return (
                   <li key={link.id}>
-                    <button
-                      onClick={() =>
-                        handleSocialClick(link.href)
-                      }
+                    <a
+                      href={link.href}
                       className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors duration-300"
                     >
                       <Icon className="w-4 h-4" />
                       <span>{link.label}</span>
-                    </button>
+                    </a>
                   </li>
                 );
               })}
@@ -119,7 +117,7 @@ export const Footer: React.FC = () => {
               </p>
 
               <p className="text-white break-all">
-                danyal.titanka24@gmail.com
+                danyal.lotfi2183@gmail.com
               </p>
             </a>
           </div>

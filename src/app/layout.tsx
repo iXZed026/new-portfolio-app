@@ -7,21 +7,21 @@ import '@/app/globals.css';
 import { Footer } from './componenets/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'John Doe - Full Stack Developer',
+  title: 'Danyal Lotfi - Full Stack Developer',
   description: 'Premium portfolio of a full stack developer building exceptional digital experiences',
   keywords: ['developer', 'portfolio', 'next.js', 'react', 'typescript'],
-  authors: [{ name: 'John Doe' }],
+  authors: [{ name: 'Danyal Lotfi' }],
   openGraph: {
-    title: 'John Doe - Full Stack Developer',
+    title: 'Danyal Lotfi - Full Stack Developer',
     description: 'Premium portfolio of a full stack developer',
     type: 'website',
     locale: 'en_US',
     url: 'https://yourdomain.com',
-    siteName: 'John Doe Portfolio',
+    siteName: 'Danyal Lotfi Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'John Doe - Full Stack Developer',
+    title: 'Danyal Lotfi - Full Stack Developer',
     description: 'Premium portfolio of a full stack developer',
   },
   robots: {

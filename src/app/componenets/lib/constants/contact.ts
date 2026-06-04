@@ -23,7 +23,7 @@ export const CONTACT_LINKS: ContactLink[] = [
   {
     platform: 'Telegram',
     value: '@ixzed026',
-    href: 'https://t.me/ixzed026',
+    href: 'https://t.me/iXZed026',
     icon: FaTelegram,
   },
   {
@@ -34,8 +34,8 @@ export const CONTACT_LINKS: ContactLink[] = [
   },
   {
     platform: 'Email',
-    value: 'danyal.titanka24@gmail.com',
-    href: 'mailto:danyal.titanka24@gmail.com',
+    value: 'danyal.lotfi2183@gmail.com',
+    href: 'mailto:danyal.lotfi2183@gmail.com',
     icon: FaEnvelope,
   },
 ];

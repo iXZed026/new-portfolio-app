@@ -41,7 +41,7 @@ export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   {
     id: 'email',
     label: 'Email',
-    href: 'mailto:danyal.titanka24@gmail.com',
+    href: 'mailto:danyal.lotfi2183@gmail.com',
     icon: FaEnvelope,
   },
 ];
