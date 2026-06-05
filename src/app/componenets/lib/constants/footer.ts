@@ -23,7 +23,7 @@ export const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   {
     id: 'instagram',
     label: 'Instagram',
-    href: 'https://instagram.com/danyal-xzdev',
+    href: 'https://instagram.com/danyal_xzdev',
     icon: FaInstagram,
   },
   {

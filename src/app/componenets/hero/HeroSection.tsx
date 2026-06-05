@@ -69,7 +69,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Particles background */}
       <ParticlesBackground
-        particleCount={80}
+        particleCount={70}
         particleColor="#1447E6"
         particleOpacity={1}
         interactive={!prefersReducedMotion}
@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       />
 
       <div
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500 rounded-full opacity-5 blur-3xl pointer-events-none animate-glow-pulse"
+        className=" absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500 rounded-full opacity-5 blur-3xl pointer-events-none animate-glow-pulse"
         style={{ animationDelay: '1s' }}
         aria-hidden="true"
       />
@@ -91,7 +91,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left column - Text content */}
-          <div className="text-center md:text-left order-2 md:order-1 space-y-6 sm:space-y-8">
+          <div className="py-10 text-center md:text-left order-2 md:order-1 space-y-6 sm:space-y-8">
             {/* Greeting badge */}
             <div className="inline-flex items-center gap-2 w-fit mx-auto md:mx-0 animate-fade-up">
               <div className="w-2 h-2 bg-blue-500 rounded-full" />
@@ -121,28 +121,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 sm:pt-8 w-full sm:w-auto animate-fade-up animate-stagger-3">
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={ctaPrimary.onClick}
-                aria-label={ctaPrimary.text}
-                className="group relative w-full sm:w-auto"
+              <a
+              href="#skills"
+                className="py-3 px-6 bg-blue-600 rounded-md group relative w-full sm:w-auto"
               >
                 <span className="flex items-center justify-center sm:justify-start gap-2">
                   {ctaPrimary.text}
                   <IoArrowForward className="transform group-hover:translate-x-1 transition-transform duration-300" />
                 </span>
-              </Button>
+              </a>
 
-              <Button
-                variant="secondary"
-                size="lg"
-                onClick={ctaSecondary.onClick}
-                aria-label={ctaSecondary.text}
-                className="w-full sm:w-auto"
+              <a
+              href="#contact"
+                className="py-3 px-6 border-2 border-gray-600 rounded-md w-full sm:w-auto hover:bg-blue-600 transition-colors duration-300"
               >
                 {ctaSecondary.text}
-              </Button>
+              </a>
             </div>
 
             {/* Stats section */}
@@ -201,7 +195,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {/* Image with floating animation */}
                 <div className="relative z-10">
                   <Image
-                    src="/images/me.jpg"
+                    src="/images/me3.png"
                     alt="Danyal Lotfi profile picture"
                     width={400}
                     height={400}

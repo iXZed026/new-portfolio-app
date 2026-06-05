@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div data-section="home">
+      <div id='home' data-section="home">
         <HeroSection
           name="Danyal Lotfi"
           title="Full Stack Developer"
@@ -53,17 +53,17 @@ export default function Home() {
       </div>
 
       {/* About Section */}
-      <div data-section="about">
+      <div id='about' data-section="about">
         <AboutSection />
       </div>
 
       {/* Projects Section */}
-      <div data-section="projects">
+      <div id='projects' data-section="projects">
         <ProjectsSection />
       </div>
 
       {/* Contact Section */}
-      <div data-section="contact">
+      <div id='contact' data-section="contact">
         <ContactSection />
       </div>
     </>

@@ -89,7 +89,7 @@ export const AboutSection: React.FC = () => {
         <div className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30 mb-16 sm:mb-24" />
 
         {/* Skills Section */}
-        <div data-section="skills">
+        <div id='skills' data-section="skills">
           <SkillsSection />
         </div>
       </div>

@@ -66,12 +66,12 @@ export const Footer: React.FC = () => {
             <ul className="space-y-3">
               {FOOTER_NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <button
-                    onClick={() => handleNavClick(item.id)}
+                  <a
+                    href={`#${item.id}`}
                     className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
                   >
                     {item.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>

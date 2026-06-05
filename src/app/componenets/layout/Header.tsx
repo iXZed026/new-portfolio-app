@@ -12,6 +12,8 @@ export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection();
+  const [activeMenu, setActiveMenu] = useState<boolean>(false)
+
 
   // Handle scroll
   useEffect(() => {
@@ -25,22 +27,26 @@ export const Header: React.FC = () => {
 
   // Prevent body scroll when menu is open
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'none' : 'initial';
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'initial';
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMobileMenuOpen]);
 
   const handleNavClick = (sectionId: string) => {
-    const element = document.querySelector(`[data-section="${sectionId}"]`);
+
+    const element = document.querySelector(
+      `[data-section="${sectionId}"]`
+    );
+
     if (element) {
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
     }
+
     setIsMobileMenuOpen(false);
-    
   };
 
   return (
@@ -66,17 +72,17 @@ export const Header: React.FC = () => {
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => handleNavClick(item.id)}
+                    href={item.href}
                     className={cn(
-                      'relative px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors duration-300',
+                      'cursor-pointer relative px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium transition-colors duration-300',
                       isActive ? 'text-blue-400' : 'text-gray-300 hover:text-white'
                     )}
                   >
                     {item.label}
                     {isActive && <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-blue-500 rounded-full" />}
-                  </button>
+                  </a>
                 );
               })}
             </nav>
@@ -90,27 +96,27 @@ export const Header: React.FC = () => {
             </a>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
+            <div
+              onClick={()=> setActiveMenu(true)}
               className="p-2 md:hidden text-white flex-shrink-0"
-              aria-label="Toggle menu"
+            // aria-label="Toggle menu"
             >
               <IoMenu size={30} />
-            </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Mobile Menu */}
       <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
+        isOpen={activeMenu}
+        onClose={() => setActiveMenu(false)}
         onNavClick={handleNavClick}
         activeSection={activeSection}
       />
 
       {/* Spacer */}
-      <div className="h-14 sm:h-16 md:h-20" />
+      {/* <div className="h-14 sm:h-16 md:h-20" /> */}
     </>
   );
 };

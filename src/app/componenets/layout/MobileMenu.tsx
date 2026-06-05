@@ -43,13 +43,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onNavCl
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
               return (
-                <button
+                <a
                   key={item.id}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onNavClick(item.id);
-                  }}
-                  type="button"
+                  href={item.href}
+                  onClick={onClose}
                   className={cn(
                     'text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg transition-all text-sm cursor-pointer pointer-events-auto',
                     isActive
@@ -58,7 +55,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onNavCl
                   )}
                 >
                   {item.label}
-                </button>
+                </a>
               );
             })}
           </nav>
