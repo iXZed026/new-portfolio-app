@@ -88,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       />
 
       {/* Content container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-30 sm:py-20">
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Left column - Text content */}
           <div className="py-10 text-center md:text-left order-2 md:order-1 space-y-6 sm:space-y-8">
