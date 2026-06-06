@@ -105,7 +105,7 @@ export const ContactSection: React.FC = () => {
                 href="mailto:danyal.titanka24@gmail.com"
                 className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
               >
-                danyal.titanka24@gmail.com
+                danyal.lotfi2183@gmail.com
               </a>
             </p>
             <p className="text-xs sm:text-sm text-gray-500">Response time: Usually within 24 hours</p>

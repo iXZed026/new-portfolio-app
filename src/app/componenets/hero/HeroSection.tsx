@@ -122,7 +122,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 sm:pt-8 w-full sm:w-auto animate-fade-up animate-stagger-3">
               <a
-              href="#skills"
+              href="#projects"
                 className="py-3 px-6 bg-blue-600 rounded-md group relative w-full sm:w-auto"
               >
                 <span className="flex items-center justify-center sm:justify-start gap-2">

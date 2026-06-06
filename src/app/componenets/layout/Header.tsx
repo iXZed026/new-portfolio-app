@@ -7,12 +7,16 @@ import { MobileMenu } from './MobileMenu';
 import { NAV_ITEMS } from '../lib/constants/navigation';
 import { useActiveSection } from '../lib/hooks/useActiveSection';
 import { cn } from '../lib/utils/cn';
+import { SiKong } from 'react-icons/si';
+import { usePathname } from 'next/navigation';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection();
   const [activeMenu, setActiveMenu] = useState<boolean>(false)
+
+  const pathname = usePathname();
 
 
   // Handle scroll
@@ -24,6 +28,7 @@ export const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -71,6 +76,11 @@ export const Header: React.FC = () => {
             <nav className="hidden md:flex items-center gap-1 lg:gap-2">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
+                // const isActive = window.location.hash === `#${item.id}`;
+                console.log("window.location.hash: ", window.location.hash)
+                console.log("isActive: ", isActive)
+                console.log("item.id: ", "#", item.id)
+                console.log("pathname: ", pathname)
                 return (
                   <a
                     key={item.id}
@@ -97,7 +107,7 @@ export const Header: React.FC = () => {
 
             {/* Mobile Menu Button */}
             <div
-              onClick={()=> setActiveMenu(true)}
+              onClick={() => setActiveMenu(true)}
               className="p-2 md:hidden text-white flex-shrink-0"
             // aria-label="Toggle menu"
             >
