@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
               href="#home"
               className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent flex-shrink-0"
             >
-              Dev
+              <SiKong size={28} className="mr-1 text-blue-400" />
             </Link>
 
             {/* Desktop Navigation */}
