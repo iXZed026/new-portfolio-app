@@ -76,11 +76,6 @@ export const Header: React.FC = () => {
             <nav className="hidden md:flex items-center gap-1 lg:gap-2">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
-                // const isActive = window.location.hash === `#${item.id}`;
-                console.log("window.location.hash: ", window.location.hash)
-                console.log("isActive: ", isActive)
-                console.log("item.id: ", "#", item.id)
-                console.log("pathname: ", pathname)
                 return (
                   <a
                     key={item.id}
