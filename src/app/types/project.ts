@@ -9,9 +9,10 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  longDescription: string;
+  longDescription?: string;
   image: string;
   technologies: ProjectTechnology[];
+  date: string;
   liveUrl: string;
   githubUrl: string;
   tags: string[];

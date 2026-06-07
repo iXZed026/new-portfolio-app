@@ -5,6 +5,7 @@
 import React from 'react';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import type { Project } from '@/app/types/project';
+import Image from 'next/image';
 
 interface ProjectCardProps {
   project: Project;
@@ -19,15 +20,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     <div className="h-full">
       <div className="relative h-full rounded-lg sm:rounded-2xl border border-blue-500/30 overflow-hidden bg-gradient-to-br from-blue-500/10 via-black to-black group card-hover-lift transition-all duration-300">
         {/* Image */}
-        <div className="relative h-40 sm:h-48 overflow-hidden bg-gradient-to-b from-blue-900/20 to-black flex-shrink-0">
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600/20 via-black to-black group-hover:scale-105 transition-transform duration-300">
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl mb-2">🖼️</div>
-              <p className="text-xs text-gray-500">Project Image</p>
-              <p className="text-xs text-gray-600 mt-1">{project.image}</p>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="relative h-62 xl:h-58 lg:h-52 md:h-58 sm:h-48 overflow-hidden bg-gradient-to-b from-blue-900/20 to-black flex-shrink-0">
+          <Image
+            src={`/images/${project.image}`}
+            alt="Portfolio image"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
+            // placeholder="blur"
+            // blurDataURL="/images/blur-placeholder.jpg"
+            quality={75}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         {/* Content */}
@@ -42,7 +47,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-            {project.tags.slice(0, 2).map((tag, index) => (
+            {project.tags.slice(0, 5).map((tag, index) => (
               <span
                 key={index}
                 className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30 transition-colors duration-300"
@@ -52,20 +57,26 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             ))}
           </div>
 
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
-            {project.technologies.slice(0, 4).map((tech, index) => {
-              const Icon = tech.icon;
-              return (
-                <div
-                  key={index}
-                  title={tech.name}
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-125"
-                >
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-              );
-            })}
+          <div className='flex justify-between items-center mb-4 sm:mb-6'>
+            {/* Technologies */}
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              {project.technologies.slice(0, 6).map((tech, index) => {
+                const Icon = tech.icon;
+                return (
+                  <div
+                    key={index}
+                    title={tech.name}
+                    className="text-gray-400 hover:text-blue-400 transition-colors duration-300 hover:scale-125"
+                  >
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                );
+              })}
+            </div>
+            {/* Date */}
+            <div>
+                <span className='text-sm text-gray-400'>{project.date}</span>
+            </div>
           </div>
 
           {/* Buttons */}
