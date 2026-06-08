@@ -199,6 +199,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     alt="Danyal Lotfi profile picture"
                     width={400}
                     height={400}
+                    quality={70}
                     className="w-full h-auto rounded-2xl object-cover"
                     priority
                   />
