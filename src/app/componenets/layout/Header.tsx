@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
           <div className="h-14 sm:h-16 md:h-20 flex items-center justify-between">
             {/* Logo */}
             <Link
-              href="#home"
+              href="#"
               className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent flex-shrink-0"
             >
               <SiKong size={28} className="mr-1 text-blue-400" />
