@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Danyal Lotfi', url: 'https://danyal-lotfi-dev-portfolio.vercel.app/' }],
   creator: 'Danyal Lotfi',
   publisher: 'Danyal Lotfi',
-
   openGraph: {
     title: 'Danyal Lotfi - Full Stack Developer',
     description: 'Building exceptional digital experiences with modern technologies. React • Next.js • TypeScript',
