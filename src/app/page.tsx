@@ -7,8 +7,14 @@ import { HeroSection } from './componenets/hero/HeroSection';
 import { AboutSection } from './componenets/sections/AboutSection';
 import { ContactSection } from './componenets/sections/ContactSection';
 import { ProjectsSection } from './componenets/sections/ProjectsSection';
+import { useInView } from './componenets/lib/hooks/useInView';
 
 export default function Home() {
+
+  const [aboutRef, aboutIsInView] = useInView<HTMLDivElement>();
+  const [projectsRef, projectsIsInView] = useInView<HTMLDivElement>();
+  const [contactsRef, contactsIsInView] = useInView<HTMLDivElement>();
+
   const handleViewSkills = () => {
     const skillsElement = document.querySelector('[data-section="skills"]');
     if (skillsElement) {
@@ -54,17 +60,22 @@ export default function Home() {
 
       {/* About Section */}
       <div id='about' data-section="about">
-        <AboutSection />
+        <div ref={aboutRef} className='min-h-[100vh]'  >
+          {aboutIsInView && <AboutSection />}
+        </div>
       </div>
 
       {/* Projects Section */}
       <div id='projects' data-section="projects">
-        <ProjectsSection />
-      </div>
+        <div ref={projectsRef} className='min-h-[100vh]' >
+          {projectsIsInView && <ProjectsSection />}
+        </div>  </div>
 
       {/* Contact Section */}
       <div id='contact' data-section="contact">
-        <ContactSection />
+        <div ref={contactsRef} className='min-h-[100vh]' >
+          {contactsIsInView && <ContactSection />}
+        </div>
       </div>
     </>
   );

@@ -46,8 +46,8 @@ export const PROJECTS: Project[] = [
       { name: 'React', icon: SiReact },
       { name: 'TypeScript', icon: SiTypescript },
       { name: 'TailwindCSS', icon: SiTailwindcss },
-      { name: 'Vervel', icon: SiVercel },
       { name: 'Github', icon: SiGithub },
+      { name: 'Vervel', icon: SiVercel },
     ],
     date: "2025/14/4",
     liveUrl: 'https://portfolio-xz.vercel.app',
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     date: "2026/6/6",
     liveUrl: 'https://danyal-lotfi-dev-portfolio.vercel.app/',
     githubUrl: 'https://github.com/iXZed026/new-portfolio-app',
-    tags: ['Portfolio', 'About Me', 'Skills', 'Contacts'],
+    tags: ['Portfolio', 'About Me', 'Skills', 'LazyLoading'],
   },
 
 ];
