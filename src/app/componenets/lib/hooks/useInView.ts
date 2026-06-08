@@ -1,31 +1,47 @@
-import { useEffect, useState, useRef } from 'react';
+// import { useEffect, useState, useRef } from 'react';
 
-export function useInView<T extends HTMLElement>(): [
-    React.RefObject<T | null>,
-    boolean
-] {
-    const ref = useRef<T | null>(null);
-    const [isInView, setIsInView] = useState<boolean>(false);
+// export function useInView<T extends HTMLElement>(
+//     options?: {
+//         threshold?: number | number[];
+//         margin?: string;
+//         once?: boolean;
+//     }
+// ): [React.RefObject<T | null>, boolean] {
+//     const ref = useRef<T | null>(null);
+//     const [isInView, setIsInView] = useState(false);
+//     const hasBeenInView = useRef(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true);
-                }
-            },
-            {
-                threshold: 0.1,
-            }
-        );
+//     useEffect(() => {
+//         const target = ref.current;
+//         if (!target) return;
 
-        const current = ref.current;
-        if (!current) return;
+//         const observer = new IntersectionObserver(
+//             ([entry]) => {
+//                 if (entry.isIntersecting) {
+//                     setIsInView(true);
+//                     hasBeenInView.current = true;
 
-        observer.observe(current);
+//                     if (options?.once) {
+//                         observer.disconnect();
+//                     }
+//                 } else {
+//                     if (!options?.once) {
+//                         setIsInView(false);
+//                     }
+//                 }
+//             },
+//             {
+//                 threshold: options?.threshold ?? 0.1,
+//                 rootMargin: options?.margin ?? '0px',
+//             }
+//         );
 
-        return () => observer.disconnect();
-    }, []);
+//         observer.observe(target);
 
-    return [ref, isInView];
-}
+//         // return () => {
+//         //     observer.disconnect();
+//         // };
+//     }, [options]);
+
+//     return [ref, isInView];
+// }
