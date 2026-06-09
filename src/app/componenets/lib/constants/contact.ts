@@ -4,6 +4,7 @@ import {
   FaTelegram,
   FaGithub,
   FaEnvelope,
+  FaLinkedin,
 } from 'react-icons/fa';
 
 export interface ContactLink {
@@ -25,6 +26,12 @@ export const CONTACT_LINKS: ContactLink[] = [
     value: '@ixzed026',
     href: 'https://t.me/iXZed026',
     icon: FaTelegram,
+  },
+  {
+    platform: 'Linkedin',
+    value: 'Danyal Lotfi',
+    href: 'https://www.linkedin.com/in/danyal-lotfi-831913354?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+    icon: FaLinkedin,
   },
   {
     platform: 'GitHub',
